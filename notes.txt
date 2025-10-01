@@ -6,5 +6,5 @@ Models
     Patients
     Doctors
     Appointment
-    Medical Recors
+    Medical Records
     
