@@ -1,0 +1,10 @@
+Healthcare Management System
+    MongoDB, Express, Angular, Node, AWS, Vercel
+
+Models 
+    Users -> Patients & Doctors & Admins -> Separate Collections + Reference
+    Patients
+    Doctors
+    Appointment
+    Medical Recors
+    
