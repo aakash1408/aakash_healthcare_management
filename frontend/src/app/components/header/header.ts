@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,11 @@ export class Header implements OnInit {
 
   ngOnInit(): void {
     this.checkLogin();
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.checkLogin();
+      });
   }
 
   toggleMenu() {
