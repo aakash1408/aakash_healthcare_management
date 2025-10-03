@@ -1,11 +1,29 @@
-<header class="w-full bg-white shadow-md px-6 py-3 flex justify-between items-center">
-  
+<div class="w-full bg-[#56bab7] text-white text-xl px-6 py-1 flex justify-between items-center">
+
+  <!-- Left side: emergency icons + text -->
   <div class="flex items-center gap-2">
-    <img src="https://w7.pngwing.com/pngs/395/546/png-transparent-medicine-health-care-logo-health-love-text-heart.png" alt="Healthcare Logo" class="h-10" />
+    <img src="https://cdn-icons-png.flaticon.com/512/7373/7373205.png" alt="Emergency Bell" class="h-6 w-6" />
+    <img src="https://static.vecteezy.com/system/resources/previews/014/441/078/non_2x/phone-call-icon-design-in-blue-circle-png.png" alt="Call" class="h-6 w-6"/>
+    <span>Emergency Helpline: +91 11 4055 4055</span>
+  </div>
+
+  <!-- Right side: calendar icon + text -->
+  <div class="flex items-center gap-2">
+    <img src="https://static.vecteezy.com/system/resources/previews/000/353/988/original/vector-calendar-icon.jpg" alt="Calendar" class="h-6 w-6"/>
+    <span>Open Hours: Mon - Sat | 9am - 6pm</span>
+  </div>
+
+</div>
+
+
+<!-- Main -->
+<header class="w-full bg-white shadow-md px-6 py-3 flex justify-between items-center">
+  <div class="flex items-center gap-2">
+    <img src="https://static.vecteezy.com/system/resources/previews/043/211/981/original/a-hospital-logo-design-featuring-a-prominent-cross-on-top-of-it-symbolizing-healthcare-and-medical-services-simple-yet-impactful-representation-of-a-healthcare-facility-free-vector.jpg" 
+         alt="Healthcare Logo" class="h-10" />
     <span class="text-xl font-extrabold text-[#003a70]">Aegis HealthCare</span>
   </div>
 
-  
   <nav class="hidden md:flex gap-10 text-gray-700">
     <a routerLink="/" class="hover:text-[#003a70]">Home</a>
     <a routerLink="/doctors" class="hover:text-[#003a70]">Doctors</a>
@@ -13,15 +31,19 @@
     <a routerLink="/contact" class="hover:text-[#003a70]">Contact</a>
   </nav>
 
-  
   <button class="md:hidden text-gray-700" (click)="toggleMenu()">
     ☰
   </button>
 
   <div class="hidden md:block">
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7]">  Login  </button>
+    <a routerLink="/login" class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7] inline-block">Login</a>
   </div>
 </header>
+
+
+<div class="w-full bg-[#003a70] text-white text-lg px-6 py-1 flex justify-center items-center">
+  <span>Free Consultation for First-Time Patients</span>
+</div>
 
 
 <div *ngIf="menuOpen" class="md:hidden bg-white shadow-md p-4 flex flex-col gap-2">
@@ -29,8 +51,7 @@
   <a routerLink="/doctors" class="hover:text-[#003a70]">Doctors</a>
   <a routerLink="/appointments" class="hover:text-[#003a70]">Appointments</a>
   <a routerLink="/contact" class="hover:text-[#003a70]">Contact</a>
-  <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7]">
-    Login
-  </button>
+  <a routerLink="/login" class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7] inline-block">Login</a>
 </div>
 
+<!-- https://w7.pngwing.com/pngs/395/546/png-transparent-medicine-health-care-logo-health-love-text-heart.png -->

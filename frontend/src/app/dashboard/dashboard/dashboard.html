@@ -1,29 +1,17 @@
 <div class="flex flex-col min-h-screen">
-  <app-header></app-header>
+  <app-header (login)="showLoginForm = true"></app-header>
 
-  
   <div class="flex flex-1 bg-gray-50 relative">
-    <app-sidebar class="hidden md:flex flex-col z-50 items-center space-y-6 fixed top-1/2 left-0 transform -translate-y-1/2 w-10 bg-white s rounded-r-2xl p-4"></app-sidebar>
-    <main class="flex-1 p-4  bg-cover bg-center bg-no-repeat" style="background-image: url('https://image.slidesdocs.com/responsive-images/background/festival-happy-hospital-medical-cartoon-white-powerpoint-background_52905b4d75__960_540.jpg');">
+    <app-sidebar class="hidden md:flex fixed top-1/2 left-0 -translate-y-1/2 w-10 h-50"></app-sidebar>
 
-      <ng-container *ngIf="role === 'patient'">
-        <h2 class="text-xl font-bold mb-4">Patient Dashboard</h2>
-        <p>Book appointments, view records & pay bills.</p>
-      </ng-container>
+    <main class="flex-1 p-4 bg-cover bg-center bg-no-repeat" 
+          style="background-image: url('https://image.slidesdocs.com/responsive-images/background/festival-happy-hospital-medical-cartoon-white-powerpoint-background_52905b4d75__960_540.jpg');">
 
-      <ng-container *ngIf="role === 'doctor'">
-        <h2 class="text-xl font-bold mb-4">Doctor Dashboard</h2>
-        <p>Manage patients, update prescriptions & availability.</p>
-      </ng-container>
+      <!-- central content is a child router outlet so routes like /login replace only this area -->
+      <router-outlet></router-outlet>
 
-      <ng-container *ngIf="role === 'admin'">
-        <h2 class="text-xl font-bold mb-4">Admin Dashboard</h2>
-        <p>Manage doctors, departments, appointments & reports.</p>
-      </ng-container>
     </main>
-
   </div>
 
-  
   <app-footer></app-footer>
 </div>
