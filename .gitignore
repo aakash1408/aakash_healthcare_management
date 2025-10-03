@@ -1,0 +1,27 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-debug.log*
+yarn-error.log*
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# Output
+dist/
+build/
+
+# Angular
+.angular/
+.angular/cache/
+coverage/
+
+# IDEs
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

@@ -1,0 +1,10 @@
+<div class="p-6">
+  <h1 class="text-2xl font-bold mb-4">Doctor Dashboard</h1>
+  <p>Welcome, Dr. {{ userName }}</p>
+
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="viewAppointments()">Today's Appointments</button>
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="updateDiagnosis()">Update Prescriptions</button>
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="markAvailability()">Mark Availability</button>
+  </section>
+</div>

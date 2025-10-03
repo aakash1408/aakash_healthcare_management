@@ -1,22 +1,17 @@
+<!-- Top bar -->
 <div class="w-full bg-[#56bab7] text-white text-xl px-6 py-1 flex justify-between items-center">
-
-  <!-- Left side: emergency icons + text -->
   <div class="flex items-center gap-2">
     <img src="https://cdn-icons-png.flaticon.com/512/7373/7373205.png" alt="Emergency Bell" class="h-6 w-6" />
     <img src="https://static.vecteezy.com/system/resources/previews/014/441/078/non_2x/phone-call-icon-design-in-blue-circle-png.png" alt="Call" class="h-6 w-6"/>
     <span>Emergency Helpline: +91 11 4055 4055</span>
   </div>
-
-  <!-- Right side: calendar icon + text -->
   <div class="flex items-center gap-2">
-    <img src="https://static.vecteezy.com/system/resources/previews/000/353/988/original/vector-calendar-icon.jpg" alt="Calendar" class="h-6 w-6"/>
-    <span>Open Hours: Mon - Sat | 9am - 6pm</span>
+    <img src="https://img.freepik.com/premium-vector/wall-clock-logo-icon_414847-367.jpg?w=2000" alt="Calendar" class="h-6 w-6"/>
+    <span>Open Hours: Always Open Mon - Sun | 24 hrs</span>
   </div>
-
 </div>
 
-
-<!-- Main -->
+<!-- Main header -->
 <header class="w-full bg-white shadow-md px-6 py-3 flex justify-between items-center">
   <div class="flex items-center gap-2">
     <img src="https://static.vecteezy.com/system/resources/previews/043/211/981/original/a-hospital-logo-design-featuring-a-prominent-cross-on-top-of-it-symbolizing-healthcare-and-medical-services-simple-yet-impactful-representation-of-a-healthcare-facility-free-vector.jpg" 
@@ -24,6 +19,7 @@
     <span class="text-xl font-extrabold text-[#003a70]">Aegis HealthCare</span>
   </div>
 
+  <!-- Desktop Navigation -->
   <nav class="hidden md:flex gap-10 text-gray-700">
     <a routerLink="/" class="hover:text-[#003a70]">Home</a>
     <a routerLink="/doctors" class="hover:text-[#003a70]">Doctors</a>
@@ -31,27 +27,46 @@
     <a routerLink="/contact" class="hover:text-[#003a70]">Contact</a>
   </nav>
 
-  <button class="md:hidden text-gray-700" (click)="toggleMenu()">
-    ☰
-  </button>
+  <!-- Mobile menu toggle -->
+  <button class="md:hidden text-gray-700" (click)="toggleMenu()">☰</button>
 
-  <div class="hidden md:block">
-    <a routerLink="/login" class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7] inline-block">Login</a>
+  <!-- Right side: login/register or user info -->
+  <div class="hidden md:flex items-center gap-4">
+    <!-- If not logged in -->
+    <ng-container *ngIf="!isLoggedIn">
+      <a routerLink="/login" class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7]">Login</a>
+      <a routerLink="/register" class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7]">Register</a>
+    </ng-container>
+
+    <!-- If logged in -->
+    <ng-container *ngIf="isLoggedIn">
+      <span>Welcome, {{ userName }}</span>
+      <button (click)="logout()" class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7]">Logout</button>
+    </ng-container>
   </div>
 </header>
 
-
+<!-- Banner -->
 <div class="w-full bg-[#003a70] text-white text-lg px-6 py-1 flex justify-center items-center">
   <span>Free Consultation for First-Time Patients</span>
 </div>
 
-
+<!-- Mobile menu -->
 <div *ngIf="menuOpen" class="md:hidden bg-white shadow-md p-4 flex flex-col gap-2">
   <a routerLink="/" class="hover:text-[#003a70]">Home</a>
   <a routerLink="/doctors" class="hover:text-[#003a70]">Doctors</a>
   <a routerLink="/appointments" class="hover:text-[#003a70]">Appointments</a>
   <a routerLink="/contact" class="hover:text-[#003a70]">Contact</a>
-  <a routerLink="/login" class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7] inline-block">Login</a>
-</div>
 
-<!-- https://w7.pngwing.com/pngs/395/546/png-transparent-medicine-health-care-logo-health-love-text-heart.png -->
+  <!-- Mobile login/register -->
+  <ng-container *ngIf="!isLoggedIn">
+    <a routerLink="/login" class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7]">Login</a>
+    <a routerLink="/register" class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7]">Register</a>
+  </ng-container>
+
+  <!-- Mobile logged-in info -->
+  <ng-container *ngIf="isLoggedIn">
+    <span>Welcome, {{ userName }}</span>
+    <button (click)="logout()" class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7]">Logout</button>
+  </ng-container>
+</div>

@@ -1,73 +1,127 @@
-<div class="ml-12 p-6">
+<div class="ml-12 p-6" *ngIf="!isLoggedIn">
   <!-- Hero Section -->
   <section class="text-center my-8 bg-white bg-opacity-80 p-6 rounded-lg shadow-lg">
-    <h1 class="text-3xl md:text-4xl font-bold mb-4">Welcome to Aegis HealthCare</h1>
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">
+      Welcome to Aegis HealthCare
+    </h1>
     <p class="text-lg mb-4">Your health, our priority. Explore our services and book appointments easily.</p>
-    <a routerLink="/login" class="bg-[#003a70] text-white px-6 py-2 rounded-lg hover:bg-[#56bab7] inline-block">Login</a>
+    <div class="flex justify-center gap-4 mt-4">
+      <a routerLink="/login" class="bg-[#003a70] text-white px-6 py-2 rounded-lg hover:bg-[#56bab7]">Login</a>
+      <a routerLink="/register" class="bg-[#56bab7] text-white px-6 py-2 rounded-lg hover:bg-[#003a70]">Register</a>
+    </div>
   </section>
 
   <!-- Specialities Section -->
-  <section class="my-8">
-    <h2 class="text-2xl font-semibold mb-4">Our Specialities</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-white p-4 rounded-lg shadow text-center">Cardiology</div>
-      <div class="bg-white p-4 rounded-lg shadow text-center">Neurology</div>
-      <div class="bg-white p-4 rounded-lg shadow text-center">Orthopedics</div>
-      <div class="bg-white p-4 rounded-lg shadow text-center">Pediatrics</div>
+  <section class="my-12">
+    <h2 class="text-3xl font-semibold mb-6 text-center">Our Specialities</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <img src="https://img.icons8.com/ios-filled/50/000000/heart-health.png" alt="Cardiology" class="mx-auto mb-2">
+        <h3 class="font-bold mb-1">Cardiology</h3>
+        <p>Advanced heart care & treatments.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <img src="https://img.icons8.com/ios-filled/50/000000/brain.png" alt="Neurology" class="mx-auto mb-2">
+        <h3 class="font-bold mb-1">Neurology</h3>
+        <p>Expert neurological services.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <img src="https://img.icons8.com/sf-regular-filled/48/dog-bone.png" alt="Orthopedics" class="mx-auto mb-2">
+        <h3 class="font-bold mb-1">Orthopedics</h3>
+        <p>Comprehensive bone & joint care.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <img src="https://img.icons8.com/ios-filled/50/000000/baby.png" alt="Pediatrics" class="mx-auto mb-2">
+        <h3 class="font-bold mb-1">Pediatrics</h3>
+        <p>Child-friendly healthcare services.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Doctors -->
+  <section class="my-12">
+    <h2 class="text-3xl font-semibold mb-6 text-center">Meet Our Experts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <img src="https://img.freepik.com/premium-photo/young-male-indian-doctor-white-background_1239886-2044.jpg?w=1380" alt="Dr. Jatin Bansa" class="w-24 h-24 rounded-full mx-auto mb-2">
+        <h3 class="font-bold mb-1">Dr. Jatin Bansal</h3>
+        <p>Cardiologist with 15+ years experience.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <img src="https://medicaltrip.in/wp-content/uploads/2023/03/Dr.-Ankit-Rana.png" alt="Dr. Shekar Sharma" class="w-24 h-24 rounded-full mx-auto mb-2">
+        <h3 class="font-bold mb-1">Dr. Shekar Sharma</h3>
+        <p>Neurologist specialized in stroke care.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <img src="https://bmchrc.org/wp-content/uploads/2021/01/Dr-Deepak-Gupta-Website-min.jpg" alt="Dr. Rohan Kapoor" class="w-24 h-24 rounded-full mx-auto mb-2">
+        <h3 class="font-bold mb-1">Dr. Rohan Kapoor</h3>
+        <p>Orthopedic surgeon & sports medicine expert.</p>
+      </div>
     </div>
   </section>
 
   <!-- Services Section -->
-  <section class="my-8">
-    <h2 class="text-2xl font-semibold mb-4">Our Services</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-white p-4 rounded-lg shadow text-center">
+  <section class="my-12">
+    <h2 class="text-3xl font-semibold mb-6 text-center">Our Services</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
         <h3 class="font-bold mb-2">24/7 Emergency</h3>
         <p>Immediate care whenever you need it.</p>
       </div>
-      <div class="bg-white p-4 rounded-lg shadow text-center">
+      <div class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
         <h3 class="font-bold mb-2">Online Consultations</h3>
         <p>Consult our doctors remotely at your convenience.</p>
       </div>
-      <div class="bg-white p-4 rounded-lg shadow text-center">
+      <div class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
         <h3 class="font-bold mb-2">Medical Records</h3>
-        <p>Secure and easy access to your health documents.</p>
+        <p>Secure access to your health documents anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="my-12 bg-white bg-opacity-90 p-6 rounded-lg shadow">
+    <h2 class="text-3xl font-semibold mb-6 text-center">What Our Patients Say</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="p-4 border rounded shadow">
+        <p>"Excellent care! The doctors are very attentive."</p>
+        <span class="block mt-2 font-bold">– Priya Sharma</span>
+      </div>
+      <div class="p-4 border rounded shadow">
+        <p>"Booking appointments online is so easy and convenient."</p>
+        <span class="block mt-2 font-bold">– Rahul Verma</span>
+      </div>
+      <div class="p-4 border rounded shadow">
+        <p>"State-of-the-art facilities and friendly staff."</p>
+        <span class="block mt-2 font-bold">– Anjali Singh</span>
       </div>
     </div>
   </section>
 
   <!-- Quick Info / Stats -->
-  <section class="my-8">
-    <h2 class="text-2xl font-semibold mb-4">Why Choose Us</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-white p-4 rounded-lg shadow text-center">
+  <section class="my-12">
+    <h2 class="text-3xl font-semibold mb-6 text-center">Why Choose Us</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow text-center">
         <p class="text-3xl font-bold">20+</p>
         <p>Years of Experience</p>
       </div>
-      <div class="bg-white p-4 rounded-lg shadow text-center">
+      <div class="bg-white p-6 rounded-lg shadow text-center">
         <p class="text-3xl font-bold">100+</p>
         <p>Specialists</p>
       </div>
-      <div class="bg-white p-4 rounded-lg shadow text-center">
+      <div class="bg-white p-6 rounded-lg shadow text-center">
         <p class="text-3xl font-bold">5000+</p>
         <p>Happy Patients</p>
       </div>
     </div>
   </section>
 
-  <!-- Role-specific content (after login) -->
-  <ng-container *ngIf="role === 'patient'">
-    <h2 class="text-xl font-bold mb-4">Patient Dashboard</h2>
-    <p>Book appointments, view records & pay bills.</p>
-  </ng-container>
-
-  <ng-container *ngIf="role === 'doctor'">
-    <h2 class="text-xl font-bold mb-4">Doctor Dashboard</h2>
-    <p>Manage patients, update prescriptions & availability.</p>
-  </ng-container>
-
-  <ng-container *ngIf="role === 'admin'">
-    <h2 class="text-xl font-bold mb-4">Admin Dashboard</h2>
-    <p>Manage doctors, departments, appointments & reports.</p>
-  </ng-container>
+  <!-- Newsletter-->
+  <section class="my-12 text-center bg-[#003a70] text-white p-6 rounded-lg shadow">
+    <h2 class="text-3xl font-semibold mb-4">Stay Updated</h2>
+    <p class="mb-4">Subscribe to our newsletter for health tips and hospital updates.</p>
+    <input type="email" placeholder="Enter your email" class="px-4 py-2 rounded border border-white text-white-800 w-1/3 md:w-1/4">
+    <button class="bg-[#56bab7] text-white px-4 py-2 rounded ml-2 hover:bg-[#003a70]">Subscribe</button>
+  </section>
 </div>

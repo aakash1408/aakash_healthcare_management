@@ -1,0 +1,13 @@
+<div class="p-6">
+  <h1 class="text-2xl font-bold mb-4">Admin Dashboard</h1>
+  <p>Welcome, {{ userName }}</p>
+
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="addDoctor()">Add Doctor</button>
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="updateDoctor()">Update Doctor</button>
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="deleteDoctor()">Delete Doctor</button>
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="manageAppointments()">Manage Appointments</button>
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="manageBilling()">Manage Billing</button>
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="generateReports()">Generate Reports</button>
+  </section>
+</div>

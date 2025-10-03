@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Output, EventEmitter } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +9,33 @@ import { RouterLink } from '@angular/router';
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
-export class Header {
+export class Header implements OnInit {
   menuOpen = false;
+  isLoggedIn = false;
+  userName = '';
 
-  @Output() login = new EventEmitter<void>();
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.checkLogin();
+  }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
+  }
+
+  checkLogin() {
+    const token = localStorage.getItem('token');
+    const name = localStorage.getItem('name');
+
+    this.isLoggedIn = !!token;
+    this.userName = name || '';
+  }
+
+  logout() {
+    localStorage.clear();
+    this.isLoggedIn = false;
+    this.userName = '';
+    this.router.navigate(['/login']);
   }
 }

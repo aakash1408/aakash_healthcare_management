@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { Auth } from '../../services/auth';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,7 @@ import { Router, RouterLink } from '@angular/router';
 export class Login implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private auth: Auth) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -22,12 +24,33 @@ export class Login implements OnInit {
     });
   }
 
-  onLoginSubmit() {
+  async onLoginSubmit() {
     if (this.loginForm.invalid) return;
-    const { email } = this.loginForm.value;
-    // TODO: replace with real auth call
-    localStorage.setItem('role', 'patient');
-    localStorage.setItem('token', 'demo-token');
-    this.router.navigate(['/']);
+    const { email, password } = this.loginForm.value;
+
+    try {
+      const res: any = await firstValueFrom(this.auth.login(email, password));
+      if (res && res.token) {
+        const token = res.token;
+        localStorage.setItem('token', token);
+        const role = this.getRoleFromToken(token) || 'patient';
+        localStorage.setItem('role', role);
+        this.router.navigate(['/']);
+      } else {
+        alert('Invalid login response');
+      }
+    } catch (err: any) {
+      alert(err?.error?.msg || 'Login failed');
+    }
+  }
+
+  private getRoleFromToken(token: string): string | null {
+    try {
+      const payload = token.split('.')[1];
+      const json = JSON.parse(atob(payload));
+      return json.role || null;
+    } catch (e) {
+      return null;
+    }
   }
 }
