@@ -68,6 +68,9 @@ export class Register implements OnInit {
       if (res && res.token) {
         localStorage.setItem('token', res.token);
         const role = this.getRoleFromToken(res.token) || payload.role;
+        if (role === 'doctor' && res.doctorId) {
+          localStorage.setItem('doctorId', res.doctorId);
+        }
         localStorage.setItem('role', role);
         this.router.navigate(['/']);
       } else {

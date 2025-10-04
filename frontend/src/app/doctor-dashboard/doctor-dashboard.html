@@ -1,10 +1,41 @@
-<div class="p-6">
+<div class="flex flex-col min-h-screen items-center justify-start p-6 bg-white/0">
   <h1 class="text-2xl font-bold mb-4">Doctor Dashboard</h1>
-  <p>Welcome, Dr. {{ userName }}</p>
+  <p class="mb-8">Welcome, Dr. {{ userName }}</p>
 
-  <section class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="viewAppointments()">Today's Appointments</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="updateDiagnosis()">Update Prescriptions</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="markAvailability()">Mark Availability</button>
-  </section>
+  <!-- Action Buttons -->
+  <div class="flex flex-wrap justify-center gap-4 mb-8">
+    <button
+      class="bg-[#003a70] text-white px-6 py-3 rounded-lg hover:bg-[#56bab7]"
+      (click)="viewAppointments()"
+    >
+      Show Appointments
+    </button>
+
+    <button
+      class="bg-[#003a70] text-white px-6 py-3 rounded-lg hover:bg-[#56bab7]"
+      (click)="markAvailability()"
+    >
+      Mark Availability
+    </button>
+  </div>
+
+  <!-- Appointments Section -->
+  <div class="w-full max-w-6xl" *ngIf="showAppointments">
+    <h2 class="text-xl font-semibold mb-4">All Appointments</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div
+        *ngFor="let a of appointments"
+        class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-200"
+      >
+        <p><strong>Patient:</strong> {{ a.patient?.name }}</p>
+        <!-- <p><strong>Date:</strong> {{ a.date | date: 'medium' }}</p> -->
+        <p><strong>Reason:</strong> {{ a.reason }}</p>
+        <p><strong>Status:</strong> {{ a.status }}</p>
+      </div>
+    </div>
+
+    <p *ngIf="appointments.length === 0" class="text-gray-600 mt-4">
+      No appointments found.
+    </p>
+  </div>
 </div>

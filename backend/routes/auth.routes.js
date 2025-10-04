@@ -20,6 +20,8 @@ router.post("/register", async (req, res) => {
         user.password = await bcrypt.hash(password, salt);
         await user.save();
 
+        let doctorId = null;
+
         // Create role-specific record
         if (role.toLowerCase() === "patient") {
             console.log("Creating patient with data:", { user: user._id, age, gender, contact, medicalHistory });
@@ -43,6 +45,7 @@ router.post("/register", async (req, res) => {
                 timing: timing || { start: "", end: "" }
             });
             await doctor.save();
+            doctorId = doctor._id;
         }
 
         // Generate JWT
@@ -51,7 +54,8 @@ router.post("/register", async (req, res) => {
 
         res.json({
             token,
-            user: { id: user._id, name: user.name, email: user.email, role: user.role }
+            user: { id: user._id, name: user.name, email: user.email, role: user.role },
+            doctorId
         });
     } catch (err) {
         console.error(err);
@@ -68,10 +72,16 @@ router.post("/login", async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ msg: "Invalid Credentials" });
 
+        let doctorId = null;
+        if (user.role.toLowerCase() === "doctor") {
+            const doctor = await Doctors.findOne({ user: user._id });
+            doctorId = doctor ? doctor._id : null;
+        }
+
         const payload = { userId: user.id, role: user.role, name: user.name };
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-        res.json({ token });
+        res.json({ token, doctorId });
     } catch (err) {
         console.error(err);
         res.status(500).send("Server error");

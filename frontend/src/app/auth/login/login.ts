@@ -41,6 +41,9 @@ export class Login implements OnInit {
         const userId = payload.id || payload.userId;
         const role = payload.role || 'patient';
         const name = payload.name || 'Patient';
+        if (role === 'doctor' && res.doctorId) {
+          localStorage.setItem('doctorId', res.doctorId);
+        }
 
         localStorage.setItem('userId', userId);
         localStorage.setItem('role', role);

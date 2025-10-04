@@ -39,20 +39,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Cancel appointment
-router.patch('/:id/cancel', async (req, res) => {
-  try {
-    const appointment = await Appointment.findByIdAndUpdate(
-      req.params.id,
-      { status: 'cancelled' },
-      { new: true }
-    );
-    if (!appointment) return res.status(404).json({ error: 'Appointment not found' });
-    res.json(appointment);
-  } catch (err) {
-    res.status(400).json({ error: 'Failed to cancel appointment' });
-  }
-});
+
 
 // Delete appointment
 router.delete('/:id', async (req, res) => {
@@ -62,6 +49,18 @@ router.delete('/:id', async (req, res) => {
     res.json({ message: 'Appointment deleted' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete appointment' });
+  }
+});
+
+
+router.get('/doctor/:doctorId', async (req, res) => {
+  try {
+    const appointments = await Appointment.find({ doctor: req.params.doctorId })
+      .populate('patient', 'name')
+      .populate('doctor', 'specialization');
+    res.json(appointments);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch appointments' });
   }
 });
 
