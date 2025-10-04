@@ -1,12 +1,88 @@
-<div class="p-6">
-  <h1 class="text-2xl font-bold mb-4">Patient Dashboard</h1>
-  <p>Welcome, {{ userName }}</p>
+<div class="flex flex-col min-h-screen items-center justify-start p-6 bg-white/0">
 
-  <section class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="searchDoctors()">Search Doctors</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="bookAppointment()">Book Appointment</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="cancelAppointment()">Cancel Appointment</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="viewMedicalHistory()">View Medical History</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="payBills()">Pay Bills</button>
-  </section>
+  <h1 class="text-2xl font-bold mb-4">Patient Dashboard</h1>
+  <p class="mb-8">Welcome, {{ userName }}</p>
+
+  <!-- Action Buttons -->
+  <div class="flex flex-wrap justify-center gap-4 mb-8">
+    <button class="bg-[#003a70] text-white px-6 py-3 rounded-lg hover:bg-[#56bab7]" (click)="searchDoctors()">Search Doctors</button>
+    <button class="bg-[#003a70] text-white px-6 py-3 rounded-lg hover:bg-[#56bab7]" (click)="showAppointment()">Show Appointment</button>
+    <button class="bg-[#003a70] text-white px-6 py-3 rounded-lg hover:bg-[#56bab7]" (click)="openBookAppointment()">Book Appointment</button>
+    <!-- <button class="bg-[#003a70] text-white px-6 py-3 rounded-lg hover:bg-[#56bab7]" (click)="cancelAppointment()">Cancel Appointment</button> -->
+    <button class="bg-[#003a70] text-white px-6 py-3 rounded-lg hover:bg-[#56bab7]" (click)="viewMedicalHistory()">Medical Records</button>
+    <button class="bg-[#003a70] text-white px-6 py-3 rounded-lg hover:bg-[#56bab7]" (click)="payBills()">Pay Bills</button>
+  </div>
+
+  <!-- Dynamic Content Area -->
+  <div class="w-full max-w-6xl">
+
+    <!-- Doctors / Search Results -->
+    <div *ngIf="showDoctors">
+      <h2 class="text-xl font-semibold mb-4">Available Doctors</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div *ngFor="let doctor of doctors" class="bg-white p-4 rounded-lg shadow text-center">
+          <h3 class="font-bold">{{ doctor.user.name }}</h3>
+          <p>Specialization: {{ doctor.specialization }}</p>
+          <p>Available Days: {{ doctor.availableDays.join(', ') }}</p>
+          <p>Timing: {{ doctor.timing.start }} - {{ doctor.timing.end }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medical Records -->
+    <div *ngIf="showMedicalRecords">
+      <h2 class="text-xl font-semibold mb-4">Your Medical Records</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div *ngFor="let record of medicalHistory" class="bg-white p-4 rounded-lg shadow">
+          <p><strong>Doctor:</strong> {{ record.doctor.user.name }}</p>
+          <p><strong>Diagnosis:</strong> {{ record.diagnosis }}</p>
+          <p><strong>Prescription:</strong> {{ record.prescription }}</p>
+          <p><strong>Notes:</strong> {{ record.notes }}</p>
+          <p><strong>Date:</strong> {{ record.createdAt | date:'medium' }}</p>
+
+          <!-- File Upload to AWS S3 -->
+          <input type="file" (change)="onFileSelected($event, record)" class="mt-2 mb-2" />
+          <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" 
+                  (click)="uploadToS3(record)">
+            Upload to Cloud
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="bookAppointmentMode" class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 w-full max-w-4xl">
+      <div *ngFor="let doctor of doctors" class="bg-white p-4 rounded-lg shadow text-center">
+        <h3 class="font-bold">{{ doctor.user.name }}</h3>
+        <p>Specialization: {{ doctor.specialization }}</p>
+        <p>Available Days: {{ doctor.availableDays.join(', ') }}</p>
+        <p>Timing: {{ doctor.timing.start }} - {{ doctor.timing.end }}</p>
+
+        <!-- Book this doctor button -->
+        <button class="bg-green-600 text-white px-4 py-2 rounded mt-2 hover:bg-green-700"
+                (click)="bookAppointment(doctor._id)">
+          Book this Doctor
+        </button>
+      </div>
+    </div>
+
+    <!-- Appointments Section -->
+    <div *ngIf="showAppointments">
+      <h2 class="text-xl font-semibold mb-4">Your Appointments</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div *ngFor="let appointment of appointments" class="bg-white p-4 rounded-lg shadow">
+          <p><strong>Doctor:</strong> {{ appointment.doctor.user.name }}</p>
+          <!-- <p><strong>Date:</strong> {{ appointment.date | date:'medium' }}</p> -->
+          <p><strong>Status:</strong> {{ appointment.status }}</p>
+          <p><strong>Reason:</strong> {{ appointment.reason }}</p>
+          <button class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700" 
+                  (click)="cancelAppointment(appointment._id)">
+            Cancel Appointment
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </div>
+

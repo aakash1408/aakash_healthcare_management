@@ -26,31 +26,32 @@ export class Login implements OnInit {
 
   async onLoginSubmit() {
     if (this.loginForm.invalid) return;
+
     const { email, password } = this.loginForm.value;
 
     try {
       const res: any = await firstValueFrom(this.auth.login(email, password));
+
       if (res && res.token) {
-        const token = res.token;
-        localStorage.setItem('token', token);
-        const role = this.getRoleFromToken(token) || 'patient';
+        // Store token
+        localStorage.setItem('token', res.token);
+
+        // Decode token to extract userId, role, name
+        const payload = JSON.parse(atob(res.token.split('.')[1]));
+        const userId = payload.id || payload.userId;
+        const role = payload.role || 'patient';
+        const name = payload.name || 'Patient';
+
+        localStorage.setItem('userId', userId);
         localStorage.setItem('role', role);
+        localStorage.setItem('name', name);
+
         this.router.navigate(['/']);
       } else {
         alert('Invalid login response');
       }
     } catch (err: any) {
       alert(err?.error?.msg || 'Login failed');
-    }
-  }
-
-  private getRoleFromToken(token: string): string | null {
-    try {
-      const payload = token.split('.')[1];
-      const json = JSON.parse(atob(payload));
-      return json.role || null;
-    } catch (e) {
-      return null;
     }
   }
 }
