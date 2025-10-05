@@ -1,6 +1,6 @@
 # Healthcare Management System (MEAN Stack)
 
-![Project Flow Placeholder](Screenshot 2025-10-05 at 1.39.18 PM.png)
+![Project Flow Placeholder](./Screenshot 2025-10-05 at 1.39.18 PM.png)
 
 ## Project Overview
 
