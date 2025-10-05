@@ -15,6 +15,7 @@ import { firstValueFrom } from 'rxjs';
 export class Register implements OnInit {
   registerForm!: FormGroup;
   selectedRole: string = 'patient';
+  passwordError: string = '';
 
   constructor(private fb: FormBuilder, private router: Router, private auth: Auth) {}
 
@@ -40,13 +41,27 @@ export class Register implements OnInit {
     this.selectedRole = event.target.value;
   }
 
+  private validatePassword(password: string): string | null {
+    if (password.length < 8) return 'Password must be at least 8 characters long';
+    if (!/[A-Z]/.test(password)) return 'Password must contain at least one uppercase letter';
+    if (!/[a-z]/.test(password)) return 'Password must contain at least one lowercase letter';
+    if (!/[0-9]/.test(password)) return 'Password must contain at least one number';
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) return 'Password must contain at least one special character';
+    return null;
+  }
+
   async onRegisterSubmit() {
     if (this.registerForm.invalid) return;
+
+    const password = this.registerForm.value.password;
+    const passwordError = this.validatePassword(password);
+    this.passwordError = passwordError || '';
+    if (passwordError) return;
 
     const payload: any = {
       name: this.registerForm.value.name,
       email: this.registerForm.value.email,
-      password: this.registerForm.value.password,
+      password,
       role: this.registerForm.value.role
     };
 
@@ -56,7 +71,9 @@ export class Register implements OnInit {
       payload.contact = this.registerForm.value.contact;
     } else if (this.selectedRole === 'doctor') {
       payload.specialization = this.registerForm.value.specialization;
-      payload.availableDays = this.registerForm.value.availableDays.split(',').map((d: string) => d.trim());
+      payload.availableDays = this.registerForm.value.availableDays
+        .split(',')
+        .map((d: string) => d.trim());
       payload.timing = {
         start: this.registerForm.value.startTime,
         end: this.registerForm.value.endTime
@@ -67,27 +84,18 @@ export class Register implements OnInit {
       const res: any = await firstValueFrom(this.auth.register(payload));
       if (res && res.token) {
         localStorage.setItem('token', res.token);
-        const role = this.getRoleFromToken(res.token) || payload.role;
-        if (role === 'doctor' && res.doctorId) {
+        const tokenPayload = JSON.parse(atob(res.token.split('.')[1]));
+        localStorage.setItem('role', tokenPayload.role || 'patient');
+        localStorage.setItem('name', tokenPayload.name || 'Patient');
+        if (tokenPayload.role === 'doctor' && res.doctorId) {
           localStorage.setItem('doctorId', res.doctorId);
         }
-        localStorage.setItem('role', role);
         this.router.navigate(['/']);
       } else {
         alert('Invalid register response');
       }
     } catch (err: any) {
       alert(err?.error?.msg || 'Registration failed');
-    }
-  }
-
-  private getRoleFromToken(token: string): string | null {
-    try {
-      const payload = token.split('.')[1];
-      const json = JSON.parse(atob(payload));
-      return json.role || null;
-    } catch (e) {
-      return null;
     }
   }
 }

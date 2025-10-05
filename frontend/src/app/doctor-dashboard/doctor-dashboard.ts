@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Doctor } from '../services/doctor';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-doctor-dashboard',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './doctor-dashboard.html',
   styleUrl: './doctor-dashboard.css'
 })
@@ -17,7 +18,7 @@ export class DoctorDashboard implements OnInit {
 
   ngOnInit(): void {}
 
-  /** ✅ View all appointments */
+  /** View all appointments */
   viewAppointments() {
     if (!this.doctorId) {
       alert('Doctor ID not found in localStorage!');
@@ -32,7 +33,7 @@ export class DoctorDashboard implements OnInit {
     });
   }
 
-  /** ✅ Mark doctor availability */
+  /** Mark doctor availability */
   markAvailability() {
     if (!this.doctorId) {
       alert('Doctor ID not found!');

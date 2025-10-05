@@ -1,13 +1,64 @@
 <div class="p-6">
   <h1 class="text-2xl font-bold mb-4">Admin Dashboard</h1>
-  <p>Welcome, {{ userName }}</p>
+  <p class="mb-4">Welcome, {{ userName }}</p>
 
-  <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="addDoctor()">Add Doctor</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="updateDoctor()">Update Doctor</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="deleteDoctor()">Delete Doctor</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="manageAppointments()">Manage Appointments</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="manageBilling()">Manage Billing</button>
-    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg" (click)="generateReports()">Generate Reports</button>
-  </section>
+  <!-- Action Buttons -->
+  <div class="flex flex-wrap gap-4 mb-6">
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7]" (click)="toggleAddForm()">
+      Add Doctor
+    </button>
+    <button class="bg-[#003a70] text-white px-4 py-2 rounded-lg hover:bg-[#56bab7]" (click)="fetchDoctors()">
+      Show All Doctors
+    </button>
+  </div>
+
+  <!-- Add / Update Doctor Form -->
+  <div *ngIf="showForm" class="bg-white p-6 rounded-lg shadow-md max-w-md mb-6">
+    <h2 class="text-xl font-semibold mb-4">{{ editingDoctor ? 'Update Doctor' : 'Add Doctor' }}</h2>
+
+    <form (ngSubmit)="editingDoctor ? updateDoctor() : addDoctor()">
+      <input [(ngModel)]="doctorData.name" name="name" type="text" placeholder="Doctor Name"
+        class="border p-2 w-full mb-2 rounded" required />
+
+      <input [(ngModel)]="doctorData.email" name="email" type="email" placeholder="Email"
+        class="border p-2 w-full mb-2 rounded" required />
+
+      <input [(ngModel)]="doctorData.specialization" name="specialization" type="text" placeholder="Specialization"
+        class="border p-2 w-full mb-2 rounded" required />
+
+      <input *ngIf="!editingDoctor" [(ngModel)]="doctorData.password" name="password" type="password"
+        placeholder="Password (for new doctor)" class="border p-2 w-full mb-2 rounded" required />
+
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 w-full">
+        {{ editingDoctor ? 'Update' : 'Add' }} Doctor
+      </button>
+    </form>
+  </div>
+
+  <!-- Doctor List -->
+  <div *ngIf="doctors.length > 0" class="overflow-x-auto">
+    <table class="min-w-full bg-white border rounded-lg shadow">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="px-4 py-2 border">Name</th>
+          <th class="px-4 py-2 border">Email</th>
+          <th class="px-4 py-2 border">Specialization</th>
+          <th class="px-4 py-2 border">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of doctors">
+          <td class="px-4 py-2 border">{{ d.user?.name }}</td>
+          <td class="px-4 py-2 border">{{ d.user?.email }}</td>
+          <td class="px-4 py-2 border">{{ d.specialization }}</td>
+          <td class="px-4 py-2 border flex gap-2">
+            <button class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+              (click)="editDoctor(d)">Edit</button>
+            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+              (click)="deleteDoctor(d._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

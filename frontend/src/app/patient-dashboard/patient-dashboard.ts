@@ -29,6 +29,7 @@ export class PatientDashboard implements OnInit {
 
   // Show doctors section
   searchDoctors() {
+    this.resetFlags();
     this.showDoctors = true;
     this.showAppointments = false;
     this.showMedicalRecords = false;
@@ -41,6 +42,7 @@ export class PatientDashboard implements OnInit {
 
   // Show appointments section
   showAppointment() {
+    this.resetFlags();
     this.showDoctors = false;
     this.showAppointments = true;
     this.showMedicalRecords = false;
@@ -53,6 +55,7 @@ export class PatientDashboard implements OnInit {
 
   // book appointment
   openBookAppointment() {
+    this.resetFlags();
     this.bookAppointmentMode = true;
     this.loadDoctors();
   }
@@ -95,6 +98,7 @@ export class PatientDashboard implements OnInit {
 
   // Show medical records section
   viewMedicalHistory() {
+    this.resetFlags();
     this.showDoctors = false;
     this.showAppointments = false;
     this.showMedicalRecords = true;
@@ -103,6 +107,13 @@ export class PatientDashboard implements OnInit {
       next: (res) => this.medicalHistory = res,
       error: () => alert('Failed to fetch medical history')
     });
+  }
+
+  resetFlags() {
+    this.showDoctors = false;
+    this.showAppointments = false;
+    this.showMedicalRecords = false;
+    this.bookAppointmentMode = false;
   }
 
   // Simulate paying bills
