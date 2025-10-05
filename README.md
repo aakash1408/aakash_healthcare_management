@@ -1,6 +1,7 @@
 # Healthcare Management System (MEAN Stack)
 
-![Project Flow Placeholder](./Screenshot 2025-10-05 at 1.39.18 PM.png)
+
+![Project Flow Placeholder](https://raw.githubusercontent.com/aakash1408/aakash_healthcare_management/main/Screenshot 2025-10-05 at 1.39.18 PM.png)
 
 ## Project Overview
 
@@ -32,7 +33,7 @@ The Healthcare Management System is a **MEAN stack application** (MongoDB, Expre
 
 The flow of the system is represented below:
 
-![Project Flow Diagram](Screenshot 2025-10-05 at 1.39.18 PM.png)
+![Project Flow Diagram](https://raw.githubusercontent.com/aakash1408/aakash_healthcare_management/main/Screenshot 2025-10-05 at 1.39.18 PM.png)
 
 ---
 
