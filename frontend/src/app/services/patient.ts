@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class Patient {
-  private apiUrl = 'http://localhost:5001/api'; // backend base URL
+  private apiUrl = 'https://aakash-healthcare-management.onrender.com/api'; // backend base URL
   private userId = localStorage.getItem('userId') || '';
 
   constructor(private http: HttpClient) {}
