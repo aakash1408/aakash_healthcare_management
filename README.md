@@ -5,7 +5,7 @@
 
 ## Project Overview
 
-The Healthcare Management System is a **MEAN stack application** (MongoDB, Express.js, Angular, Node.js) designed to manage patients, doctors, and administrative workflows in a healthcare facility. The system provides role-based dashboards for **patients, doctors, and admin**, allowing efficient appointment management, doctor availability tracking, and user management.  
+Aegis Healthcare - Healthcare Management System is a **MEAN stack application** (MongoDB, Express.js, Angular, Node.js) designed to manage patients, doctors, and administrative workflows in a healthcare facility. The system provides role-based dashboards for **patients, doctors, and admin**, allowing efficient appointment management, doctor availability tracking, and user management.  
 
 **Live Project:** [Project Link](https://frontend-nu-rust.vercel.app/)
 
